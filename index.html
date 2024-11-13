@@ -1,11 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hello WASM</title>
-</head>
-<body>
-  <h1>Hello, WASM!</h1>
-</body>
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>Hello WASM</title>
+  </head>
+  <body>
+    <h1>Hello, WASM!</h1>
+    <script type="module">
+      import init, { greet } from "./pkg/hello_rustwasm.js";
+      init().then(() => {
+        greet("WebAssembly");
+      });
+    </script>
+  </body>
 </html>
