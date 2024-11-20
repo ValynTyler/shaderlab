@@ -35,7 +35,7 @@ fn start() -> Result<(), JsValue> {
         out vec4 outColor;
         
         void main() {
-            outColor = vec4(1, 1, 1, 1);
+            outColor = vec4(1, 0, 1, 1);
         }
         "##,
     )?;
@@ -90,7 +90,7 @@ fn start() -> Result<(), JsValue> {
 }
 
 fn draw(context: &WebGl2RenderingContext, vert_count: i32) {
-    context.clear_color(0.0, 0.0, 0.0, 1.0);
+    context.clear_color(0.0, 0.5, 0.5, 1.0);
     context.clear(WebGl2RenderingContext::COLOR_BUFFER_BIT);
 
     context.draw_arrays(WebGl2RenderingContext::TRIANGLES, 0, vert_count);
