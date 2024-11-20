@@ -9,14 +9,16 @@
   let
     pkgs = nixpkgs.legacyPackages.x86_64-linux;
   in {
-    packages.x86_64-linux.build = pkgs.writeShellScriptBin "build" ''
-      wasm-pack build --target web
-    '';
+    packages.x86_64-linux = rec {
+      build = pkgs.writeShellScriptBin "build" ''
+        wasm-pack build --target web
+      '';
 
-    packages.x86_64-linux.serve = pkgs.writeShellScriptBin "serve" ''
-      xdg-open http://localhost:8000 &
-      python3 -m http.server
-    '';
+      serve = pkgs.writeShellScriptBin "serve" ''
+        xdg-open http://localhost:8000 &
+        python3 -m http.server
+      '';
+    };
 
     devShells.x86_64-linux.default = pkgs.mkShell {
       buildInputs = [
@@ -30,6 +32,10 @@
 
         # host locally
         pkgs.python312
+
+        # utils
+        self.packages.x86_64-linux.build
+        self.packages.x86_64-linux.serve
       ];
 
       shellHook = ''
