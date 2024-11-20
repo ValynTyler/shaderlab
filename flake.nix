@@ -14,8 +14,15 @@
 
     devShells.x86_64-linux.default = pkgs.mkShell {
       buildInputs = [
+        # build tools
         pkgs.cargo
         pkgs.rustc
+
+        # wasm
+        pkgs.wasm-pack
+
+        # host locally
+        pkgs.python312
       ];
     };
   };
