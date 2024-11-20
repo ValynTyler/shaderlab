@@ -7,10 +7,12 @@
   <body>
     <h1>Hello, WASM!</h1>
     <script type="module">
-      import init, { greet } from "./pkg/hello_rustwasm.js";
+      import init, { start } from "./pkg/hello_rustwasm.js";
       init().then(() => {
-        greet("WebAssembly");
+        // greet("WebAssembly");
+        start();
       });
     </script>
+    <canvas id="canvas" height="150" width="150"></canvas>
   </body>
 </html>
