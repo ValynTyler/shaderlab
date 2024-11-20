@@ -4,15 +4,18 @@ use web_sys::{WebGlProgram, WebGlShader};
 
 #[wasm_bindgen(start)]
 fn start() -> Result<(), JsValue> {
+    // get DOM elements
     let document = web_sys::window().unwrap().document().unwrap();
     let canvas = document.get_element_by_id("canvas").unwrap();
     let canvas: web_sys::HtmlCanvasElement = canvas.dyn_into::<web_sys::HtmlCanvasElement>()?;
 
+    // aquire a webgl context inside the canvas element
     let context = canvas
         .get_context("webgl2")?
         .unwrap()
         .dyn_into::<Ctx>()?;
 
+    // compile shaders
     let vert_shader = compile_shader(
         &context,
         Ctx::VERTEX_SHADER,
@@ -40,9 +43,12 @@ fn start() -> Result<(), JsValue> {
         }
         "##,
     )?;
+
+    // bind and enable shader program
     let program = link_program(&context, &vert_shader, &frag_shader)?;
     context.use_program(Some(&program));
 
+    // quad vertices
     let vertices: [f32; 9] = [-0.7, -0.7, 0.0, 0.7, -0.7, 0.0, 0.0, 0.7, 0.0];
 
     let position_attribute_location = context.get_attrib_location(&program, "position");
