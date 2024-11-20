@@ -6,4 +6,5 @@ To build the project for the web, use `wasm-pack build --target web`, then run i
 xdg-open http://localhost:8000 &
 python3 -m http.server
 ```
-
+## Resources
+- https://docs.rs/web-sys/0.3.72/web\_sys/index.html
