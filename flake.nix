@@ -23,6 +23,7 @@
         # build tools
         pkgs.cargo
         pkgs.rustc
+        pkgs.llvmPackages.bintools
 
         # wasm
         pkgs.wasm-pack
@@ -30,6 +31,10 @@
         # host locally
         pkgs.python312
       ];
+
+      shellHook = ''
+        echo "Rust WASM development environment"
+      '';
     };
   };
 }
