@@ -2,12 +2,19 @@ use wasm_bindgen::prelude::*;
 use web_sys::WebGl2RenderingContext as Ctx;
 use web_sys::{WebGlProgram, WebGlShader};
 
+#[wasm_bindgen(js_namespace = console)]
+extern {
+    fn log(string: &str);
+}
+
 #[wasm_bindgen(start)]
 fn start() -> Result<(), JsValue> {
     // get DOM elements
     let document = web_sys::window().unwrap().document().unwrap();
     let canvas = document.get_element_by_id("canvas").unwrap();
     let canvas: web_sys::HtmlCanvasElement = canvas.dyn_into::<web_sys::HtmlCanvasElement>()?;
+
+    log("nice shaders...");
 
     // aquire a webgl context inside the canvas element
     let context = canvas
