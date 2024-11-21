@@ -1,17 +1,17 @@
-<!doctype html>
-<html lang="en-US">
-  <head>
-    <meta charset="utf-8" />
-    <title>Hello WASM</title>
-  </head>
-  <body>
-    <h1>Hello, WASM!</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
     <script type="module">
       import init, { start } from "./pkg/hello_rustwasm.js";
       init().then(() => {
         start();
       });
     </script>
-    <canvas id="canvas" height="150" width="150"></canvas>
-  </body>
+    <canvas id="canvas" width="600" height="480"></canvas>
+</body>
 </html>
