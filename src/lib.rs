@@ -92,7 +92,7 @@ fn start() -> Result<(), JsValue> {
 }
 
 fn draw(context: &Ctx, vert_count: i32) {
-    context.clear_color(0.0, 0.5, 0.5, 1.0);
+    context.clear_color(0.0, 0.0, 0.0, 1.0);
     context.clear(Ctx::COLOR_BUFFER_BIT);
 
     context.draw_arrays(Ctx::TRIANGLES, 0, vert_count);
