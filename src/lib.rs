@@ -1,5 +1,5 @@
 use wasm_bindgen::prelude::*;
-use web_sys::WebGl2RenderingContext as Ctx;
+use web_sys::WebGl2RenderingContext as GlContext;
 use web_sys::{WebGlProgram, WebGlShader};
 
 #[wasm_bindgen(js_namespace = console)]
@@ -20,18 +20,18 @@ fn start() -> Result<(), JsValue> {
     let context = canvas
         .get_context("webgl2")?
         .unwrap()
-        .dyn_into::<Ctx>()?;
+        .dyn_into::<GlContext>()?;
 
     // compile shaders
     let vert_shader = compile_shader(
         &context,
-        Ctx::VERTEX_SHADER,
+        GlContext::VERTEX_SHADER,
         include_str!("shaders/vert.glsl")
     )?;
 
     let frag_shader = compile_shader(
         &context,
-        Ctx::FRAGMENT_SHADER,
+        GlContext::FRAGMENT_SHADER,
         include_str!("shaders/frag.glsl")
     )?;
 
@@ -48,7 +48,7 @@ fn start() -> Result<(), JsValue> {
 
     let position_attribute_location = context.get_attrib_location(&program, "position");
     let buffer = context.create_buffer().ok_or("Failed to create buffer")?;
-    context.bind_buffer(Ctx::ARRAY_BUFFER, Some(&buffer));
+    context.bind_buffer(GlContext::ARRAY_BUFFER, Some(&buffer));
 
     // Note that `Float32Array::view` is somewhat dangerous (hence the
     // `unsafe`!). This is creating a raw view into our module's
@@ -62,9 +62,9 @@ fn start() -> Result<(), JsValue> {
         let positions_array_buf_view = js_sys::Float32Array::view(&vertices);
 
         context.buffer_data_with_array_buffer_view(
-            Ctx::ARRAY_BUFFER,
+            GlContext::ARRAY_BUFFER,
             &positions_array_buf_view,
-            Ctx::STATIC_DRAW,
+            GlContext::STATIC_DRAW,
         );
     }
 
@@ -76,7 +76,7 @@ fn start() -> Result<(), JsValue> {
     context.vertex_attrib_pointer_with_i32(
         position_attribute_location as u32,
         3,
-        Ctx::FLOAT,
+        GlContext::FLOAT,
         false,
         0,
         0,
@@ -91,15 +91,15 @@ fn start() -> Result<(), JsValue> {
     Ok(())
 }
 
-fn draw(context: &Ctx, vert_count: i32) {
+fn draw(context: &GlContext, vert_count: i32) {
     context.clear_color(0.0, 0.0, 0.0, 1.0);
-    context.clear(Ctx::COLOR_BUFFER_BIT);
+    context.clear(GlContext::COLOR_BUFFER_BIT);
 
-    context.draw_arrays(Ctx::TRIANGLES, 0, vert_count);
+    context.draw_arrays(GlContext::TRIANGLES, 0, vert_count);
 }
 
 pub fn compile_shader(
-    context: &Ctx,
+    context: &GlContext,
     shader_type: u32,
     source: &str,
 ) -> Result<WebGlShader, String> {
@@ -110,7 +110,7 @@ pub fn compile_shader(
     context.compile_shader(&shader);
 
     match context
-        .get_shader_parameter(&shader, Ctx::COMPILE_STATUS)
+        .get_shader_parameter(&shader, GlContext::COMPILE_STATUS)
         .as_bool()
         .unwrap_or(false)
     {
@@ -124,7 +124,7 @@ pub fn compile_shader(
 }
 
 pub fn link_program(
-    context: &Ctx,
+    context: &GlContext,
     vert_shader: &WebGlShader,
     frag_shader: &WebGlShader,
 ) -> Result<WebGlProgram, String> {
@@ -137,7 +137,7 @@ pub fn link_program(
     context.link_program(&program);
 
     match context 
-        .get_program_parameter(&program, Ctx::LINK_STATUS)
+        .get_program_parameter(&program, GlContext::LINK_STATUS)
         .as_bool()
         .unwrap_or(false)
     {
