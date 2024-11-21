@@ -6,6 +6,7 @@ This project exposes two commands for building and running web content. Use `bui
 ```bash
 $ nix develop <path/to/project>
 $ build
+Compiling to web assembly
 ...
 $ serve
 Opening on port `8080`.
