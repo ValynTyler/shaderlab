@@ -26,29 +26,13 @@ fn start() -> Result<(), JsValue> {
     let vert_shader = compile_shader(
         &context,
         Ctx::VERTEX_SHADER,
-        r##"#version 300 es
- 
-        in vec4 position;
-
-        void main() {
-        
-            gl_Position = position;
-        }
-        "##,
+        include_str!("shaders/vert.glsl")
     )?;
 
     let frag_shader = compile_shader(
         &context,
         Ctx::FRAGMENT_SHADER,
-        r##"#version 300 es
-    
-        precision highp float;
-        out vec4 outColor;
-        
-        void main() {
-            outColor = vec4(1, 0, 1, 1);
-        }
-        "##,
+        include_str!("shaders/frag.glsl")
     )?;
 
     // bind and enable shader program
