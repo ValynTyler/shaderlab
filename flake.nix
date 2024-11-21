@@ -11,10 +11,12 @@
   in {
     packages.x86_64-linux = rec {
       build = pkgs.writeShellScriptBin "build" ''
+        echo "Compiling to web assembly..."
         wasm-pack build --target web
       '';
 
       serve = pkgs.writeShellScriptBin "serve" ''
+        echo "Opening at https://localhost:8080"
         xdg-open http://localhost:8000 &
         python3 -m http.server
       '';
