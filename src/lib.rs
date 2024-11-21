@@ -115,9 +115,11 @@ pub fn compile_shader(
         .unwrap_or(false)
     {
         true => Ok(shader),
-        false => Err(context
+        false => Err(
+            context
             .get_shader_info_log(&shader)
-            .unwrap_or_else(|| String::from("Unknown error creating shader"))),
+            .unwrap_or_else(|| String::from("Unknown error creating shader"))
+        ),
     }
 }
 
@@ -140,9 +142,11 @@ pub fn link_program(
         .unwrap_or(false)
     {
         true => Ok(program),
-        false => Err(context
+        false => Err(
+            context
             .get_program_info_log(&program)
-            .unwrap_or_else(|| String::from("Unknown error creating program object"))),
+            .unwrap_or_else(|| String::from("Unknown error creating program object"))
+        ),
     }
 }
 
