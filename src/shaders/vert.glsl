@@ -1,6 +1,6 @@
 #version 300 es
 
-in vec4 position;
+layout(location = 0) in vec4 position; // between 0 and 15
 
 void main() {
   // don't modify vertex position
