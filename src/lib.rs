@@ -18,7 +18,7 @@ fn start() -> Result<(), JsValue> {
     let canvas = document.get_element_by_id("canvas").unwrap();
     let canvas: web_sys::HtmlCanvasElement = canvas.dyn_into::<web_sys::HtmlCanvasElement>()?;
 
-    log("nice shaders.");
+    log("nice shaders...");
 
     // acquire a webgl context inside the canvas element
     let context = canvas
@@ -51,7 +51,7 @@ fn start() -> Result<(), JsValue> {
     // read the `location` of attribute "position" (specified in vertex shader with
     // `layout(location=<0-15>)`)
     let position_attribute_location = context.get_attrib_location(&program, "position");
-    log(&format!("{}", position_attribute_location));
+    log(&format!("location of `position` atribute: {}", position_attribute_location));
 
     // acquire a buffer object into which to load quad data
     let buffer = context.create_buffer().ok_or("Failed to create buffer")?;
