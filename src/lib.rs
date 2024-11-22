@@ -18,7 +18,7 @@ fn start() -> Result<(), JsValue> {
     let canvas = document.get_element_by_id("canvas").unwrap();
     let canvas: web_sys::HtmlCanvasElement = canvas.dyn_into::<web_sys::HtmlCanvasElement>()?;
 
-    log("nice shaders...");
+    log("nice shaders.");
 
     // acquire a webgl context inside the canvas element
     let context = canvas
@@ -27,20 +27,18 @@ fn start() -> Result<(), JsValue> {
         .dyn_into::<GlContext>()?;
 
     // compile shaders
-    let vert_shader = compile_shader(
+    let vert_shader = VertexShader::compile(
         &context,
-        GlContext::VERTEX_SHADER,
         include_str!("shaders/vert.glsl")
     )?;
 
-    let frag_shader = compile_shader(
+    let frag_shader = FragmentShader::compile(
         &context,
-        GlContext::FRAGMENT_SHADER,
         include_str!("shaders/frag.glsl")
     )?;
 
     // bind and enable shader program
-    let program = link_program(&context, &vert_shader, &frag_shader)?;
+    let program = link_program(&context, &vert_shader.gl_shader, &frag_shader.gl_shader)?;
     context.use_program(Some(&program));
 
     // quad vertices

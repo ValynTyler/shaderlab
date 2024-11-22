@@ -3,7 +3,7 @@ use web_sys::{WebGl2RenderingContext, WebGlShader};
 use super::Shader;
 
 pub struct VertexShader {
-    gl_shader: WebGlShader,
+    pub gl_shader: WebGlShader,
 }
 
 impl Shader for VertexShader {

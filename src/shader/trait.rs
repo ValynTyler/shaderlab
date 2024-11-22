@@ -14,7 +14,7 @@ pub trait Shader {
     }
 }
 
-pub fn compile_shader(
+fn compile_shader(
     context: &GlContext,
     shader_type: u32,
     source: &str,
