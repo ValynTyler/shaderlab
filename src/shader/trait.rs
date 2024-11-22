@@ -2,6 +2,16 @@ use web_sys::{WebGl2RenderingContext as GlContext, WebGlShader};
 
 pub trait Shader {
     fn gl_enum() -> u32;
+    fn compile(
+        context: &GlContext,
+        source: &str,
+    ) -> Result<Self, String>
+        where Self: Sized + From::<WebGlShader> {
+        match compile_shader(context, Self::gl_enum(), source) {
+            Ok(gl_shader) => Ok(Self::from(gl_shader)),
+            Err(e) => Err(e),
+        }
+    }
 }
 
 pub fn compile_shader(
