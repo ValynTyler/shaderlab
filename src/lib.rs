@@ -16,7 +16,7 @@ fn start() -> Result<(), JsValue> {
 
     log("nice shaders...");
 
-    // aquire a webgl context inside the canvas element
+    // acquire a webgl context inside the canvas element
     let context = canvas
         .get_context("webgl2")?
         .unwrap()
