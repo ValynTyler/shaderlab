@@ -52,9 +52,8 @@ fn start() -> Result<(), JsValue> {
     // read the `location` of attribute "position" (specified in vertex shader with
     // `layout(location=<0-15>)`)
     let position_attribute_location = context.get_attrib_location(&program.gl_program, "position");
-    log(&format!("location of `position` atribute: {}", position_attribute_location));
 
-    // acquire a buffer object into which to load quad data
+    // acquire a buffer object into which to load triangle data
     let buffer = context.create_buffer().ok_or("Failed to create buffer")?;
     context.bind_buffer(GlContext::ARRAY_BUFFER, Some(&buffer));
 
