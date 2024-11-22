@@ -51,6 +51,7 @@ fn start() -> Result<(), JsValue> {
     let position_attribute_location = context.get_attrib_location(&program, "position");
     log(&format!("{}", position_attribute_location));
 
+    // acquire a buffer object into which to load quad data
     let buffer = context.create_buffer().ok_or("Failed to create buffer")?;
     context.bind_buffer(GlContext::ARRAY_BUFFER, Some(&buffer));
 
