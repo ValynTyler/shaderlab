@@ -46,7 +46,11 @@ fn start() -> Result<(), JsValue> {
          0.0,  0.7,  0.0,
     ];
 
+    // read the `location` of attribute "position" (specified in vertex shader with
+    // `layout(location=<0-15>)`)
     let position_attribute_location = context.get_attrib_location(&program, "position");
+    log(&format!("{}", position_attribute_location));
+
     let buffer = context.create_buffer().ok_or("Failed to create buffer")?;
     context.bind_buffer(GlContext::ARRAY_BUFFER, Some(&buffer));
 
