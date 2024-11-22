@@ -40,8 +40,9 @@ fn start() -> Result<(), JsValue> {
     )?;
 
     // bind and enable shader program
-    let program = link_program(&context, &vert_shader.gl_shader, &frag_shader.gl_shader)?;
-    context.use_program(Some(&program));
+    let program = Program::new(&context)?;
+    program.link(&context, &vert_shader, &frag_shader)?;
+    context.use_program(Some(&program.gl_program));
 
     // quad vertices
     let vertices: [f32; 9] = [
@@ -52,7 +53,7 @@ fn start() -> Result<(), JsValue> {
 
     // read the `location` of attribute "position" (specified in vertex shader with
     // `layout(location=<0-15>)`)
-    let position_attribute_location = context.get_attrib_location(&program, "position");
+    let position_attribute_location = context.get_attrib_location(&program.gl_program, "position");
     log(&format!("location of `position` atribute: {}", position_attribute_location));
 
     // acquire a buffer object into which to load quad data
@@ -105,31 +106,4 @@ fn draw(context: &GlContext, vert_count: i32) {
     context.clear(GlContext::COLOR_BUFFER_BIT);
 
     context.draw_arrays(GlContext::TRIANGLES, 0, vert_count);
-}
-
-pub fn link_program(
-    context: &GlContext,
-    vert_shader: &WebGlShader,
-    frag_shader: &WebGlShader,
-) -> Result<WebGlProgram, String> {
-    let program = context
-        .create_program()
-        .ok_or_else(|| String::from("Unable to create shader object"))?;
-
-    context.attach_shader(&program, vert_shader);
-    context.attach_shader(&program, frag_shader);
-    context.link_program(&program);
-
-    match context 
-        .get_program_parameter(&program, GlContext::LINK_STATUS)
-        .as_bool()
-        .unwrap_or(false)
-    {
-        true => Ok(program),
-        false => Err(
-            context
-            .get_program_info_log(&program)
-            .unwrap_or_else(|| String::from("Unknown error creating program object"))
-        ),
-    }
 }
