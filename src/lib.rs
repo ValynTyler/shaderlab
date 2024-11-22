@@ -40,8 +40,7 @@ fn start() -> Result<(), JsValue> {
     )?;
 
     // bind and enable shader program
-    let program = Program::new(&context)?;
-    program.link(&context, &vert_shader, &frag_shader)?;
+    let program = Program::link(&context, &vert_shader, &frag_shader)?;
     context.use_program(Some(&program.gl_program));
 
     // quad vertices
