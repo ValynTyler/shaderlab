@@ -1,6 +1,5 @@
 use wasm_bindgen::prelude::*;
 use web_sys::WebGl2RenderingContext as GlContext;
-use web_sys::{WebGlProgram, WebGlShader};
 
 pub mod shader;
 pub mod program;
