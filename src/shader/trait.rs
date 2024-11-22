@@ -38,4 +38,3 @@ fn compile_shader(
         ),
     }
 }
-

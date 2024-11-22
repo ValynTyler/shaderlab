@@ -3,8 +3,10 @@ use web_sys::WebGl2RenderingContext as GlContext;
 use web_sys::{WebGlProgram, WebGlShader};
 
 pub mod shader;
+pub mod program;
 
 use crate::shader::*;
+use crate::program::*;
 
 #[wasm_bindgen(js_namespace = console)]
 extern {
@@ -131,4 +133,3 @@ pub fn link_program(
         ),
     }
 }
-
