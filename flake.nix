@@ -50,6 +50,14 @@
           env = {
             # Required by rust-analyzer
             RUST_SRC_PATH = "${pkgs.rustToolchain}/lib/rustlib/src/rust/library";
+
+            # For compatibility with winit and wgpu
+            RUST_LOG = "debug";
+            LD_LIBRARY_PATH = with pkgs; lib.makeLibraryPath [
+              libGL
+              libxkbcommon
+              wayland
+            ];
           };
         };
       });
